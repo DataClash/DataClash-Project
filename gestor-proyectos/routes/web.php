@@ -18,6 +18,8 @@ Route::get('/proyectos', [ProyectoController::class, 'index'])->name('proyectos.
 Route::get('/tareas', [TareaController::class, 'index'])->name('tareas.index');
 Route::get('/tareas/form', [TareaController::class, 'create'])->name('tareas.create');
 Route::post('/tareas', [TareaController::class, 'store'])->name('tareas.store');
-// Route::get('/tareas/livewire', function () {
-//     return view('tareas.form'); // Asegúrate que coincida con el archivo que usas
-// });
+Route::get('/tareas/pendientes', [TareaController::class, 'pendientes'])->name('tareas.pendientes');
+Route::get('/tareas/{id}/editar', [TareaController::class, 'editar'])->name('tareas.editar');
+Route::put('/tareas/{id}/actualizar', [TareaController::class, 'actualizar'])->name('tareas.actualizar');
+Route::get('/tareas/{id}/finalizar', [TareaController::class, 'formFinalizar'])->name('tareas.formFinalizar');
+Route::post('/tareas/{id}/finalizar', [TareaController::class, 'finalizar'])->name('tareas.finalizar');

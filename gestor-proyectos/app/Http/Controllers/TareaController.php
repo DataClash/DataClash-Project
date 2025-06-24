@@ -41,4 +41,61 @@ class TareaController extends Controller
 
         return view('tareas.form-index', compact('proyectos'));
     }
+
+    public function pendientes()
+    {
+        $tareas = DB::select("
+            SELECT IdTask, Project, Task, Description, Progress, Status, DueDate, Comments
+            FROM DB_PROJECT_V_TASKS
+            WHERE Progress < 1;
+        ");
+
+        return view('tareas.pendientes', compact('tareas'));
+    }
+
+    public function editar($id)
+    {
+        $tarea = DB::selectOne("SELECT * FROM DB_PROJECT_V_TASKS WHERE IdTask = ?", [$id]);
+        return view('tareas.editar', compact('tarea'));
+    }
+
+    public function actualizar(Request $request, $id)
+    {
+        $porcentaje = $request->input('porcentaje');
+        $estado = $request->input('estado');
+        $due_date = $request->input('due_date') ?: null;
+        $end_date = $request->input('end_date') ?: null;
+        $comentarios = $request->input('comentarios') ?: null;
+
+        DB::statement("CALL DB_PROJECT_SP_UPDATETASK(?, ?, ?, ?, ?)", [
+            $id,
+            $porcentaje,
+            $estado,
+            $due_date,
+            $comentarios
+        ]);
+
+        return redirect()->route('tareas.pendientes')->with('success', 'Tarea actualizada correctamente.');
+    }
+
+    public function formFinalizar($id)
+    {
+        $tarea = DB::selectOne("SELECT * FROM DB_PROJECT_V_TASKS WHERE IdTask = ?", [$id]);
+        return view('tareas.finalizar', compact('tarea'));
+    }
+
+    public function finalizar(Request $request, $id)
+    {
+        $endDate = $request->input('end_date');
+        $comentarios = $request->input('comentarios');
+
+        DB::statement("CALL DB_PROJECT_SP_ENDTASK(?, ?, ?)", [
+            $id,
+            $endDate,
+            $comentarios
+        ]);
+
+        return redirect()->route('tareas.pendientes')->with('success', 'Tarea finalizada correctamente.');
+    }
+
 }
