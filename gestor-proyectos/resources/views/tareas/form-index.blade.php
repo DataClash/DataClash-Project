@@ -12,10 +12,21 @@
         <form action="{{ route('tareas.store') }}" method="POST" class="border p-3 rounded bg-light">
             @csrf
 
+            {{-- Proyecto existente o nuevo --}}
+            <div class="mb-3">
+                <label for="help_proyecto" class="form-label">Proyecto</label>
+                <select id="help_proyecto" name="help_proyecto" class="form-select" onchange="toggleNuevoProyecto(this)">
+                    <option value="">-- Selecciona un proyecto --</option>
+                    @foreach($proyectos as $p)
+                        <option value="{{ $p->PROJECT }}">{{ $p->PROJECT }}</option>
+                    @endforeach
+                </select>
+            </div>
+
             {{-- ID_PROJECT --}}
             <div class="mb-3">
-                <label for="id_proyecto" class="form-label">ID del Proyecto</label>
-                <input type="text" name="id_proyecto" id="id_proyecto" class="form-control" placeholder="Escribe o selecciona el ID de un proyecto" required>
+                <label for="id_proyecto" class="form-label">ID del Proyecto antecesor</label>
+                <input type="text" name="id_proyecto" id="id_proyecto" class="form-control" placeholder="Escribe el id del proyecto" required>
             </div>
 
             {{-- PROJECT_NAME --}}
@@ -26,8 +37,8 @@
 
             {{-- TASK_NAME --}}
             <div class="mb-3">
-                <label for="nombre" class="form-label">Nombre de la Tarea</label>
-                <input type="text" name="nombre" id="nombre" class="form-control" required>
+                <label for="tarea" class="form-label">Nombre de la Tarea</label>
+                <input type="text" name="tarea" id="tarea" class="form-control" required>
             </div>
 
             {{-- DESC_NAME --}}
@@ -59,3 +70,18 @@
     </div>
 </div>
 @endsection
+
+<script>
+function toggleNuevoProyecto(select) {
+    const nuevoProyectoDiv = document.getElementById('nuevoProyectoDiv');
+    const proyectoInput = document.getElementById('proyecto');
+
+    if (select.value === 'nuevo') {
+        nuevoProyectoDiv.style.display = 'block';
+        proyectoInput.required = true;
+    } else {
+        nuevoProyectoDiv.style.display = 'none';
+        proyectoInput.required = false;
+    }
+}
+</script>

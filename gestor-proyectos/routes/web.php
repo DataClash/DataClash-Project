@@ -16,7 +16,7 @@ use App\Http\Controllers\TareaController;
 
 Route::get('/proyectos', [ProyectoController::class, 'index'])->name('proyectos.index');
 Route::get('/tareas', [TareaController::class, 'index'])->name('tareas.index');
-Route::get('/tareas/form', [TareaController::class, 'formIndex'])->name('tareas.form');
+Route::get('/tareas/form', [TareaController::class, 'create'])->name('tareas.create');
 Route::post('/tareas', [TareaController::class, 'store'])->name('tareas.store');
 // Route::get('/tareas/livewire', function () {
 //     return view('tareas.form'); // Asegúrate que coincida con el archivo que usas
