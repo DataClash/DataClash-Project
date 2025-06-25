@@ -1,18 +1,11 @@
 <?php
 
-// use Illuminate\Support\Facades\DB;
-
-// Route::get('/probar-bd', function () {
-//     try {
-//         $resultados = DB::select('SELECT * FROM DB_PROJECT_TTASK LIMIT 5');
-//         return dd($resultados);
-//     } catch (\Exception $e) {
-//         return 'Error de conexión: ' . $e->getMessage();
-//     }
-// });
-
 use App\Http\Controllers\ProyectoController;
 use App\Http\Controllers\TareaController;
+use App\Http\Controllers\HomeController;
+
+Route::get('/', [HomeController::class, 'index'])->name('home');
+
 
 Route::get('/proyectos', [ProyectoController::class, 'index'])->name('proyectos.index');
 Route::get('/tareas', [TareaController::class, 'index'])->name('tareas.index');

@@ -13,14 +13,32 @@
     <body>
 
         {{-- Navbar --}}
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-            <div class="container">
-                <a class="navbar-brand" href="/">🧠 Neural Projects</a>
-                <div>
-                    <a class="nav-link text-white" href="/proyectos">Proyectos</a>
-                    <a class="nav-link text-white" href="/tareas">Tareas</a>
-                </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="{{ url('/') }}">🧠 Gestor de Proyectos</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuNav">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="menuNav">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- Tareas -->
+                <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">Tareas</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="{{ route('tareas.create') }}">Crear tarea</a></li>
+                    <li><a class="dropdown-item" href="{{ route('tareas.pendientes') }}">Tareas pendientes</a></li>
+                    <li><a class="dropdown-item" href="{{ route('tareas.index') }}">Todas las tareas</a></li>
+                </ul>
+                </li>
+
+                <!-- Dashboard -->
+                <li class="nav-item">
+                </li>
+            </ul>
             </div>
+        </div>
         </nav>
 
         {{-- Contenido dinámico --}}
@@ -30,7 +48,7 @@
 
         {{-- Footer --}}
         <footer class="bg-light text-center py-3 mt-5">
-            <small>&copy; {{ date('Y') }} Neural Traveler — Todos los derechos reservados.</small>
+            <small>&copy; {{ date('Y') }} Data Clash — Todos los derechos reservados.</small>
         </footer>
 
         {{-- Scripts --}}
